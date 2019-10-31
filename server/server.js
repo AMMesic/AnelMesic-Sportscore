@@ -34,7 +34,6 @@ app.get('/allsvenskan/round', async (req, res) => {
   const response = await fetch(`http://api.isportsapi.com/sport/football/schedule?api_key=${APP_KEY}&leagueId=1628`)
   const data = await response.json()
   const teams = data.data.filter(team => team.round === '30')
-  console.log(teams)
   res.send(teams)
 })
 
@@ -68,7 +67,6 @@ app.get('/livescore/:leaguename', async (req, res) => {
   const response = await fetch(`http://api.isportsapi.com/sport/football/livescores?api_key=${APP_KEY}`)
   const data = await response.json()
   const teams = data.data.filter(team => team.leagueName === req.params.leaguename)
-  // console.log(data)
   res.send(teams)
 })
 

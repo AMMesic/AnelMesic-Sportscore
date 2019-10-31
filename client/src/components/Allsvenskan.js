@@ -10,6 +10,7 @@ import './Allsvenskan.css'
 
 const Allsvenskan = () => {
   const [teams, setAllTeams] = useState([])
+  const [state, setAllState] = useState(['Hammarby'])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -21,15 +22,28 @@ const Allsvenskan = () => {
     setAllTeams(data)
     setLoading(false)
   }
+  const getFootballTeams = async () => {
+    setLoading(true)
+    const res = await fetch(`http://localhost:5000/allsvenskan/teams`)
+    const data = await res.json()
+
+    setAllState(data)
+    setLoading(false)
+  }
 
   const updateSearchAutoComplete = e => {
     setSearch(e.target.textContent)
   }
 
   const updateSearch = e => {
+    console.log(e.target.value)
     setSearch(e.target.value)
   }
-  
+
+  useEffect(() => {
+    getFootballTeams()
+  },[])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -38,7 +52,7 @@ const Allsvenskan = () => {
       <Autocomplete className="autocomplete"
         autoHightlight
         autoComplete={true}
-        options={teamData}
+        options={state}
         onChange={updateSearchAutoComplete}
         style={{ width: 'auto', justifyContent: "center"}}
         renderInput={(params) => (
