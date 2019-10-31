@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -7,7 +8,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #3a5894;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,8 +16,21 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 2%;
 }
 
 .App-link {
   color: #09d3ac;
 }
+
+/* .search-form {
+  justify-content: center;
+}
+
+.autocomplete {
+  justify-content: center;
+} */
+
+.search-bar {
+  background:white;
+} 

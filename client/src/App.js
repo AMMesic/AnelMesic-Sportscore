@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import Schedule from './components/Schedule'
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles';
 
 import './App.css'
 
 function App() {
   const [teamNames, setTeamNames] = useState([])
   const [teams, setAllTeams] = useState([])
-  const [search, setSearch] = useState('')
-  // const [showMenu] = useState()
+  const [search, setSearch] = useState('Hammarby')
   const [query, setQuery] = useState('Hammarby')
-
-  useEffect(() => {
-    getFootballTeams()
-    getFootballStats()
-  }, [query])
+  const [finishedLoading, setFinishedLoading] = useState(false)
 
   const getFootballStats = async () => {
+    console.log('getFootballStats')
     const res = await fetch(`http://localhost:5000/allsvenskan/${query}`)
     const data = await res.json()
     // console.log(data)
@@ -26,27 +23,43 @@ function App() {
   }
 
   const getFootballTeams = async () => {
+    console.log('getFootballTeams')
     const res = await fetch(`http://localhost:5000/allsvenskan/teams`)
     const data = await res.json()
     console.log(data)
 
-    setTeamNames([...data])
+    setTeamNames(data)
   }
 
   const updateSearch = e => {
+    console.log('updateSearch')
     setSearch(e.target.value)
   }
 
   const getSearch = e => {
     e.preventDefault()
+    console.log('getSearch')
     setQuery(search)
-    setSearch('')
+    // setSearch('')
   }
+  useEffect(() => {
+    console.log('useEffect')
+    const func = async () => {
+      await getFootballTeams()
+      await getFootballStats()
+    }
+    func()
+  }, [query])
+  
+  const data = finishedLoading ? 
+  getFootballStats() : 
+  'loading'
 
   return (
+
     <div className="App">
-      {/* <header className="App-header"> */}
-        {/* <form onClick={getSearch} className="search-form">
+      <header className="App-header">
+      <form onClick={getSearch} className="search-form">
           <input
             className="search-bar"
             type="text"
@@ -56,47 +69,42 @@ function App() {
           <button className="search-button" type="submit">
             Search
           </button>
-        </form> */}
-         <Autocomplete
-      options={teamNames}
-      getOptionLabel={option => option}
-      style={{ width: 300 }}
-      renderInput={params => (
-        <TextField {...params} label="Teams" variant="outlined" fullWidth />
-      )}
-    />
-    {/* {console.log('sdada', setAllTeams)} */}
+        </form>
+        {/* <div className="search-bar">
+        <form onSubmit={getSearch} className="search-form">
+      <Autocomplete className="autocomplete"
+        options={teamNames}
+        // getOptionLabel={option => option}
+        // value={search}
+        onChange= {updateSearch}
+        onClose={getSearch}
+        style={{ width: 300, justifyContent: "center"}}
+        renderInput={params => (
+          <TextField {...params} label="Teams" variant="outlined" fullWidth />
+        )
+      }
+      />
+      </form>
+      </div> */}
+      
 
-        {teams.map(stats => (
-          <Schedule
-            home={stats.homeName}
-            away={stats.awayName}
-            homeScore={stats.homeScore}
-            awayScore={stats.awayScore}
-            location={stats.location}
-            round={stats.round}
-          />
-        ))}
-      {/* </header> */}
+      {teams.map(stats => (
+        <Schedule
+          home={stats.homeName}
+          away={stats.awayName}
+          homeScore={stats.homeScore}
+          awayScore={stats.awayScore}
+          location={stats.location}
+          round={stats.round}
+          homeYellow={stats.homeYellow}
+          homeRed={stats.homeRed}
+          awayYellow={stats.awayYellow}
+          awayRed={stats.awayRed}
+        />
+      ))}
+      </header>
     </div>
   )
 }
 
 export default App
-
-const teams = [{title: 'Hammarby'}]
-
- {/* {
-          this.state.showMenu
-          ? (
-            <div className="menu">
-            <button> Menu item 1 </button>
-            <button> Menu item 2 </button>
-            <button> Menu item 3 </button>
-          </div>
-          )
-          : (
-            null
-          )
-
-        } */}
