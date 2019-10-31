@@ -34,13 +34,15 @@
 
 .search-form {
   min-height: 10vh;
+  background: rgb(197, 193, 193);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .search-bar {
-  width: 50%;
+  /* width: 50%; */
+  display: flex;
   border: none;
   padding: 10px;
   justify-content: center;

@@ -60,7 +60,7 @@ function App() {
 
     <div className="App">
       <header className="App-header">
-      <form onClick={getSearch} className="search-form">
+      {/* <form onClick={getSearch} className="search-form">
           <input
             className="search-bar"
             type="text"
@@ -70,8 +70,8 @@ function App() {
           <button className="search-button" type="submit">
             Search
           </button>
-        </form>
-        {/* <div className="search-bar">
+        </form> */}
+        <div className="search-bar">
         <form onSubmit={getSearch} className="search-form">
       <Autocomplete className="autocomplete"
         options={teamNames}
@@ -86,7 +86,7 @@ function App() {
       }
       />
       </form>
-      </div> */}
+      </div>
       
 
       <div className="football-stats">
