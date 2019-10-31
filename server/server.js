@@ -30,7 +30,7 @@ app.get('/allsvenskan/:team', async (req, res) => {
   console.log('API endpoint allsvenskan')
   const response = await fetch(`http://api.isportsapi.com/sport/football/schedule?api_key=${APP_KEY}&leagueId=1628`)
   const data = await response.json()
-  const teams = data.data.filter(team => team.homeName === req.params.team)
+  const teams = data.data.filter(team => team.homeName === req.params.team || team.awayName === req.params.team)
   res.send(teams)
 })
 
