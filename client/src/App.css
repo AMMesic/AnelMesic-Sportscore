@@ -55,6 +55,11 @@
   
 }
 
+.search-button{
+  min-height: 10vh;
+  background: rgb(197, 193, 193); 
+}
+
 @media all and (min-width: 600px) {
   .football-stats {
     display: flex;
