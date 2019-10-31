@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Sm from '../Routes/Sm'
 import Loading from './Loading'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
 import './Allsvenskan.css'
@@ -10,7 +8,6 @@ import './Allsvenskan.css'
 
 const Smspecial = () => {
   const [teams, setAllTeams] = useState([])
-  const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
 
   const getSm = async () => {
@@ -20,16 +17,6 @@ const Smspecial = () => {
 
     setAllTeams(data)
     setLoading(false)
-  }
-
-  const updateSearchAutoComplete = e => {
-    console.log('updateSearch', e.target)
-    setSearch(e.target.textContent)
-  }
-
-  const updateSearch = e => {
-    console.log('updateSearch', e.target)
-    setSearch(e.target.value)
   }
   
   return (

@@ -26,7 +26,11 @@ const Livescore = () => {
     }
   
     const updateSearch = e => {
-      setSearch(e.target.value)
+      console.log(e.target.value)
+      if(e.keyCode === 13){
+        console.log('a')
+        setSearch(e.target.value)
+      }
     }
   
   return (
@@ -53,8 +57,6 @@ const Livescore = () => {
             Search
           </Button>
       </div>
-      
-
       <div className="football-stats">
       {teams.map(stats => (
         <LivescoreSchedule
@@ -62,6 +64,7 @@ const Livescore = () => {
           away={stats.awayName}
           homeScore={stats.homeScore}
           awayScore={stats.awayScore}
+          leagueName={stats.leagueName}
           location={stats.location}
           round={stats.round}
           homeYellow={stats.homeYellow}

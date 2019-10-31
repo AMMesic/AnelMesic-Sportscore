@@ -28,8 +28,7 @@ const Header = () => {
       >
         <MenuItem onClick={handleClose}><Link to="/Allsvenskan" >Allsvenskan</Link></MenuItem>
         <MenuItem onClick={handleClose}><Link to="/SM-guld" >SM-Special</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link to="/Premier League" >Premier League</Link></MenuItem>
-        <MenuItem onClick={handleClose}><Link to="/livescore" ></Link>Livescore</MenuItem>
+        <MenuItem onClick={handleClose}><Link to="/Livescore" >Livescore</Link></MenuItem>
       </Menu>
     </div>
   )
