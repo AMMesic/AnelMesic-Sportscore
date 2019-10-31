@@ -26,13 +26,28 @@ app.get('/allsvenskan', async (req, res) => {
   res.send(data.data)
 })
 
+app.get('/allsvenskan/teams', async (req, res) => {
+  console.log('API endpoint allsvenskan with name of teams')
+  const response = await fetch(`http://api.isportsapi.com/sport/football/schedule?api_key=${APP_KEY}&leagueId=1628`)
+  const data = await response.json()
+  const teams = data.data.map(team => team.homeName).reduce((acc, curr) => {
+    if(acc.indexOf(curr) === -1) {
+      acc.push(curr)
+    }
+    return acc
+  }, []).sort()
+  console.log(teams)
+  res.send(teams)
+})
+
 app.get('/allsvenskan/:team', async (req, res) => {
-  console.log('API endpoint allsvenskan')
+  console.log('API endpoint allsvenskan with team search')
   const response = await fetch(`http://api.isportsapi.com/sport/football/schedule?api_key=${APP_KEY}&leagueId=1628`)
   const data = await response.json()
   const teams = data.data.filter(team => team.homeName === req.params.team || team.awayName === req.params.team)
   res.send(teams)
 })
+
 
 app.get('/livescore', async (req, res) => {
   const resp = await fetch(`http://api.isportsapi.com/sport/football/livescores?api_key=${APP_KEY}`)
