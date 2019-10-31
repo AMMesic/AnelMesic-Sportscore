@@ -1,10 +1,12 @@
 .lds-roller {
+  color: aquamarine;
   display: inline-block;
   position: relative;
   width: 64px;
   height: 64px;
 }
 .lds-roller div {
+  color: aquamarine;
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 32px 32px;
 }
@@ -15,7 +17,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #fff;
+  background: aquamarine;
   margin: -3px 0 0 -3px;
 }
 .lds-roller div:nth-child(1) {

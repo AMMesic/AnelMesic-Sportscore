@@ -1,88 +1,38 @@
 import React, { useEffect, useState } from 'react'
-import Schedule from './Schedule'
+import Schedule from '../Routes/Schedule'
 import Loading from './Loading'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-import './Searchteams.css'
+import './Allsvenskan.css'
 
-const getFootballTeams = () => {
-  console.log('getFootballTeams')
-  // setLoading(true)
-  fetch(`http://localhost:5000/allsvenskan/teams`)
-    .then(res => res.json())
-    .then(body => {
-      console.log(body)
-      return body})
-  // setLoading(false)
-}
 
-function Searchteams() {
+const Allsvenskan = () => {
   const [teams, setAllTeams] = useState([])
-  // const [teamNames, setTeamNames] = useState([])
-  const teamNames = getFootballTeams()
   const [search, setSearch] = useState('')
-  const [query, setQuery] = useState('Hammarby')
   const [loading, setLoading] = useState(false)
 
   const getFootballStats = async () => {
     setLoading(true)
-    console.log('getFootballStats')
     const res = await fetch(`http://localhost:5000/allsvenskan/${search}`)
     const data = await res.json()
-    // console.log(data)
 
     setAllTeams(data)
     setLoading(false)
   }
 
-  
-
   const updateSearchAutoComplete = e => {
-    // e.preventDefault()
-    console.log('updateSearch', e.target)
     setSearch(e.target.textContent)
-    // setQuery(search)
   }
 
   const updateSearch = e => {
-    // e.preventDefault()
-    console.log('updateSearch', e.target)
     setSearch(e.target.value)
-    // setQuery(search)
   }
-
-  // const getSearch = e => {
-  //   e.preventDefault()
-  //   console.log('getSearch', search)
-  //   setQuery(search)
-  //   setSearch('')
-  // }
-  // useEffect(() => {
-  //   console.log('useEffect')
-  //   const func = async () => {
-  //     await getFootballStats()
-  //     // await getFootballTeams()
-  //   }
-  //   func()
-  // }, [query])
   
   return (
-
     <div className="App">
       <header className="App-header">
-      {/* <form onClick={getSearch} className="search-form">
-          <input
-            className="search-bar"
-            type="text"
-            value={search}
-            onChange={updateSearch}
-          />
-          <button className="search-button" type="submit">
-            Search
-          </button>
-        </form> */}
         <div className="search-bar">
         <form onSubmit={getFootballStats} className="search-form">
       <Autocomplete className="autocomplete"
@@ -90,22 +40,19 @@ function Searchteams() {
         autoComplete={true}
         options={teamData}
         onChange={updateSearchAutoComplete}
-        // getOptionLabel={option => option}
-        
-        
-        style={{ width: 300, justifyContent: "center"}}
+        style={{ width: 'auto', justifyContent: "center"}}
         renderInput={(params) => (
         <TextField {...params} value={search} onChange={updateSearch} label="Teams" variant="outlined"  fullWidth />
         )
       }
       />
       </form>
-      <Button className="search-button" variant="outlined" onClick={getFootballStats}>
+      <div className="button">
+      <Button className="search-button" variant="outlined" onClick={getFootballStats} style={{ height: 80}}>
             Search
           </Button>
+          </div>
       </div>
-      
-
       <div className="football-stats">
       {teams.map(stats => (
         <Schedule
@@ -139,4 +86,4 @@ const teamData = [
   'Orebro',            'Ostersunds FK'
 ]
 
-export default Searchteams
+export default Allsvenskan
