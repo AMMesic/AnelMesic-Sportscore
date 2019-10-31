@@ -1,9 +1,10 @@
 import React from 'react'
+import '../Schedule.css'
 
 
 const Schedule = ({ home, away, homeScore, awayScore, location, round, homeYellow, homeRed, awayYellow ,awayRed}) => {
   return (
-    <div>
+    <div className="footballstats-placeholder">
       <h3>Home: {home}</h3>
       <h3>Away: {away}</h3>
       <p>{homeScore}</p>

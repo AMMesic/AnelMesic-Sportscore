@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Schedule from './components/Schedule'
+import Loading from './components/Loading'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,24 +12,28 @@ function App() {
   const [teams, setAllTeams] = useState([])
   const [search, setSearch] = useState('Hammarby')
   const [query, setQuery] = useState('Hammarby')
-  const [finishedLoading, setFinishedLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const getFootballStats = async () => {
+    setLoading(true)
     console.log('getFootballStats')
     const res = await fetch(`http://localhost:5000/allsvenskan/${query}`)
     const data = await res.json()
     // console.log(data)
 
     setAllTeams(data)
+    setLoading(false)
   }
 
   const getFootballTeams = async () => {
     console.log('getFootballTeams')
+    setLoading(true)
     const res = await fetch(`http://localhost:5000/allsvenskan/teams`)
     const data = await res.json()
     console.log(data)
 
     setTeamNames(data)
+    setLoading(false)
   }
 
   const updateSearch = e => {
@@ -51,10 +56,6 @@ function App() {
     func()
   }, [query])
   
-  const data = finishedLoading ? 
-  getFootballStats() : 
-  'loading'
-
   return (
 
     <div className="App">
@@ -88,6 +89,7 @@ function App() {
       </div> */}
       
 
+      <div className="football-stats">
       {teams.map(stats => (
         <Schedule
           home={stats.homeName}
@@ -102,6 +104,8 @@ function App() {
           awayRed={stats.awayRed}
         />
       ))}
+      {loading && <Loading />}
+      </div>
       </header>
     </div>
   )
