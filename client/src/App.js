@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import Schedule from './components/Schedule'
 import './App.css';
+import { statSync } from 'fs';
 
 function App() {
 
@@ -20,6 +22,16 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {state.map(stats => (
+          <Schedule 
+          home={stats.homeName}
+          away={stats.awayName}
+          homeScore={stats.homeScore}
+          awayScore={stats.awayScore}
+          location={stats.location}
+          round={stats.location}
+          />
+        ))}
         
       </header>
     </div>
