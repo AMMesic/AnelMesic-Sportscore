@@ -78,7 +78,7 @@ function App() {
         // getOptionLabel={option => option}
         // value={search}
         onChange= {updateSearch}
-        onClose={getSearch}
+        onClick={getSearch}
         style={{ width: 300, justifyContent: "center"}}
         renderInput={params => (
           <TextField {...params} label="Teams" variant="outlined" fullWidth />

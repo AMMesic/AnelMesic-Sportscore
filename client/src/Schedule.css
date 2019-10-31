@@ -1,4 +1,7 @@
 .footballstats-placeholder {
   background: white;
   justify-content: center;
+  margin-bottom: 2%;
+  opacity: 0.9;
+  text-align: center;
 }

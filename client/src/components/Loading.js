@@ -1,7 +1,7 @@
 import React from 'react'
-
+import '../Loading.css'
 const Loading = () => {
-  return  <h1>LOADING</h1>
+  return  <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 }
 
 export default Loading
