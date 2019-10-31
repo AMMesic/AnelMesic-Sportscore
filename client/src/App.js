@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import Schedule from './components/Schedule'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
+
 import './App.css'
 
 function App() {
-  const [state, setstate] = useState([])
+  const [teamNames, setTeamNames] = useState([])
+  const [teams, setAllTeams] = useState([])
   const [search, setSearch] = useState('')
   // const [showMenu] = useState()
   const [query, setQuery] = useState('Hammarby')
@@ -13,14 +15,14 @@ function App() {
   useEffect(() => {
     getFootballTeams()
     getFootballStats()
-  }, [])
+  }, [query])
 
   const getFootballStats = async () => {
     const res = await fetch(`http://localhost:5000/allsvenskan/${query}`)
     const data = await res.json()
     // console.log(data)
 
-    // setstate(data)
+    setAllTeams(data)
   }
 
   const getFootballTeams = async () => {
@@ -28,7 +30,7 @@ function App() {
     const data = await res.json()
     console.log(data)
 
-    setstate(data)
+    setTeamNames([...data])
   }
 
   const updateSearch = e => {
@@ -43,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header"> */}
         {/* <form onClick={getSearch} className="search-form">
           <input
             className="search-bar"
@@ -56,15 +58,16 @@ function App() {
           </button>
         </form> */}
          <Autocomplete
-      options={getFootballTeams}
+      options={teamNames}
       getOptionLabel={option => option}
       style={{ width: 300 }}
       renderInput={params => (
-        <TextField {...params} label="Combo box" variant="outlined" fullWidth />
+        <TextField {...params} label="Teams" variant="outlined" fullWidth />
       )}
     />
+    {/* {console.log('sdada', setAllTeams)} */}
 
-        {state.map(stats => (
+        {teams.map(stats => (
           <Schedule
             home={stats.homeName}
             away={stats.awayName}
@@ -74,7 +77,7 @@ function App() {
             round={stats.round}
           />
         ))}
-      </header>
+      {/* </header> */}
     </div>
   )
 }
