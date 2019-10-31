@@ -1,5 +1,5 @@
 import React from 'react'
-import '../Schedule.css'
+import './Schedule.css'
 
 
 const Schedule = ({ home, away, homeScore, awayScore, location, round, homeYellow, homeRed, awayYellow ,awayRed}) => {
