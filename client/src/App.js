@@ -1,3 +1,28 @@
+// import React from 'react';
+// import './App.css';
+// import Home from './Routes/Home'
+// import Schedule from './components/Schedule'
+// import Searchteams from './components/Searchteams'
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+
+// function App() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <Router>
+//           <Switch>
+//             <Route path='/' exact component={Home}/>
+//             <Route path='/search' component={Searchteams}/>
+//             <Route path='/*' component={Error}/>
+//           </Switch>
+//         </Router>
+//       </header>
+//     </div>
+//   );
+// }
+
+// export default App;
 import React, { useEffect, useState } from 'react'
 import Schedule from './components/Schedule'
 import Loading from './components/Loading'
@@ -8,9 +33,21 @@ import Button from '@material-ui/core/Button'
 
 import './App.css'
 
+const getFootballTeams = () => {
+  console.log('getFootballTeams')
+  // setLoading(true)
+  fetch(`http://localhost:5000/allsvenskan/teams`)
+    .then(res => res.json())
+    .then(body => {
+      console.log(body)
+      return body})
+  // setLoading(false)
+}
+
 function App() {
   const [teams, setAllTeams] = useState([])
-  const [teamNames, setTeamNames] = useState([])
+  // const [teamNames, setTeamNames] = useState([])
+  const teamNames = getFootballTeams()
   const [search, setSearch] = useState('')
   const [query, setQuery] = useState('Hammarby')
   const [loading, setLoading] = useState(false)
@@ -18,7 +55,7 @@ function App() {
   const getFootballStats = async () => {
     setLoading(true)
     console.log('getFootballStats')
-    const res = await fetch(`http://localhost:5000/allsvenskan/${query}`)
+    const res = await fetch(`http://localhost:5000/allsvenskan/${search}`)
     const data = await res.json()
     // console.log(data)
 
@@ -26,43 +63,42 @@ function App() {
     setLoading(false)
   }
 
-  const getFootballTeams = async () => {
-    console.log('getFootballTeams')
-    setLoading(true)
-    const res = await fetch(`http://localhost:5000/allsvenskan/teams`)
-    const data = await res.json()
-    console.log(data)
+  
 
-    setTeamNames(data)
-    setLoading(false)
+  const updateSearchAutoComplete = e => {
+    // e.preventDefault()
+    console.log('updateSearch', e.target)
+    setSearch(e.target.textContent)
+    // setQuery(search)
   }
 
   const updateSearch = e => {
-    e.preventDefault()
-    console.log('updateSearch', e.target.value)
+    // e.preventDefault()
+    console.log('updateSearch', e.target)
     setSearch(e.target.value)
     // setQuery(search)
   }
 
-  const getSearch = e => {
-    e.preventDefault()
-    console.log('getSearch', search)
-    setSearch('')
-    setQuery(search)
-  }
-  useEffect(() => {
-    console.log('useEffect')
-    const func = async () => {
-      await getFootballStats()
-    }
-    func()
-  }, [query])
+  // const getSearch = e => {
+  //   e.preventDefault()
+  //   console.log('getSearch', search)
+  //   setQuery(search)
+  //   setSearch('')
+  // }
+  // useEffect(() => {
+  //   console.log('useEffect')
+  //   const func = async () => {
+  //     await getFootballStats()
+  //     // await getFootballTeams()
+  //   }
+  //   func()
+  // }, [query])
   
   return (
 
     <div className="App">
       <header className="App-header">
-      <form onClick={getSearch} className="search-form">
+      {/* <form onClick={getSearch} className="search-form">
           <input
             className="search-bar"
             type="text"
@@ -72,27 +108,28 @@ function App() {
           <button className="search-button" type="submit">
             Search
           </button>
-        </form>
-        {/* <div className="search-bar">
-        <form onSubmit={getSearch} className="search-form">
+        </form> */}
+        <div className="search-bar">
+        <form onSubmit={getFootballStats} className="search-form">
       <Autocomplete className="autocomplete"
+        autoHightlight
+        autoComplete={true}
         options={teamData}
+        onChange={updateSearchAutoComplete}
         // getOptionLabel={option => option}
-        // value={search}
-        // onClick={getSearch}
-        onChange={updateSearch}
+        
         
         style={{ width: 300, justifyContent: "center"}}
-        renderInput={params => (
-          <TextField {...params} label="Teams" variant="outlined"  fullWidth />
+        renderInput={(params) => (
+        <TextField {...params} value={search} onChange={updateSearch} label="Teams" variant="outlined"  fullWidth />
         )
       }
       />
       </form>
-      <Button className="search-button" variant="outlined" onClick={getSearch}>
+      <Button className="search-button" variant="outlined" onClick={getFootballStats}>
             Search
           </Button>
-      </div> */}
+      </div>
       
 
       <div className="football-stats">
