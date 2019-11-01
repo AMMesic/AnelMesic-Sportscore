@@ -9,7 +9,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import uuid from 'uuid/v4';
 
 import './Allsvenskan.css';
 
@@ -128,6 +128,7 @@ const Allsvenskan = () => {
             <div className="football-stats">
               {teams.map(stats => (
                 <Schedule
+                  key={uuid()}
                   home={stats.homeName}
                   away={stats.awayName}
                   homeScore={stats.homeScore}

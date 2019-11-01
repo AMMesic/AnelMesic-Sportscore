@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sm from '../Routes/Sm';
 import Loading from './Loading';
 import Button from '@material-ui/core/Button';
+import uuid from 'uuid/v4';
 
 import './Allsvenskan.css';
 
@@ -37,6 +38,7 @@ const Smspecial = () => {
         <div className="football-stats">
           {teams.map(stats => (
             <Sm
+              key={uuid()}
               home={stats.homeName}
               away={stats.awayName}
               homeScore={stats.homeScore}

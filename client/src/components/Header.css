@@ -1,3 +1,15 @@
 .menu-button {
   background: white;
 }
+
+body {
+  background: url('../Football.jpeg');
+  background-size: cover;
+}
+
+.logo-name {
+  color: aliceblue;
+  text-align: center;
+  opacity: 0.9;
+  font-style: italic;
+}

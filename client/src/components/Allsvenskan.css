@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background-image: linear-gradient(120deg, #1a2d52 0%, #3a5894 100%);
+  /* background-image: linear-gradient(120deg, #1a2d52 0%, #3a5894 100%); */
 }
 
 .App-header {
@@ -9,11 +9,9 @@
 }
 
 .search-form {
-  /* min-height: 10vh; */
   background: rgb(197, 193, 193);
   display: flex;
   justify-content: center;
-  /* align-items: center; */
 }
 
 .search-bar {

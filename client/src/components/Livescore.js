@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import './Livescore.css';
+import uuid from 'uuid/v4';
 
 const Livescore = () => {
   const [teams, setAllTeams] = useState([]);
@@ -30,12 +31,10 @@ const Livescore = () => {
   };
 
   const updateSearchAutoComplete = e => {
-    console.log(e.target.textContent);
     setSearch(e.target.textContent);
   };
 
   const updateSearch = e => {
-    console.log(e.target.value);
     setSearch(e.target.value);
   };
 
@@ -83,6 +82,7 @@ const Livescore = () => {
         <div className="football-stats">
           {teams.map(stats => (
             <LivescoreSchedule
+              key={uuid()}
               home={stats.homeName}
               away={stats.awayName}
               homeScore={stats.homeScore}

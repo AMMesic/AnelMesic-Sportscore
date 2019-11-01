@@ -41,6 +41,7 @@ const Header = () => {
           <Link to="/Livescore">Livescore</Link>
         </MenuItem>
       </Menu>
+      <h1 className="logo-name">QuickScore</h1>
     </div>
   );
 };
