@@ -13,7 +13,33 @@ import uuid from 'uuid/v4';
 
 import './Allsvenskan.css';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%'
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(10),
+    color: theme.palette.text.primary,
+    paddingLeft: 100
+    
+  },
+  panelDetailClass: {
+
+  }
+}));
+
 const Allsvenskan = () => {
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+   
   const [teams, setAllTeams] = useState([]);
   const [state, setAllState] = useState(['']);
   const [search, setSearch] = useState('');
@@ -87,16 +113,23 @@ const Allsvenskan = () => {
           </div>
         </div>
       </header>
-      <div>
-        <ExpansionPanel>
+      <div className={classes.root}>
+        <ExpansionPanel
+          expanded={expanded === 'panel1'}
+          onChange={handleChange('panel1')}
+        >
           <ExpansionPanelSummary
             aria-controls="panel1bh-content"
             id="panel1bh-header"
           >
-            <Typography>Schedule and stats for games</Typography>
-            <Typography>Click to expansion</Typography>
+            <Typography className={classes.heading}>
+              Schedule and stats for games
+            </Typography>
+            <Typography className={classes.secondaryHeading}>
+              Click to expansion
+            </Typography>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails className={classes.panelDetailClass}>
             <div className="football-stats">
               {teams.map(stats => (
                 <Schedule
