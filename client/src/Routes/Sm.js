@@ -1,8 +1,18 @@
-import React from 'react'
-import './Sm.css'
+import React from 'react';
+import './Sm.css';
 
-
-const Schedule = ({ home, away, homeScore, awayScore, location, round, homeYellow, homeRed, awayYellow ,awayRed}) => {
+const Schedule = ({
+  home,
+  away,
+  homeScore,
+  awayScore,
+  location,
+  round,
+  homeYellow,
+  homeRed,
+  awayYellow,
+  awayRed
+}) => {
   return (
     <div className="sm-placeholder">
       <h3>Home: {home}</h3>
@@ -11,12 +21,12 @@ const Schedule = ({ home, away, homeScore, awayScore, location, round, homeYello
       <p>{awayScore}</p>
       <p>Stadium {location}</p>
       <p>Home yellow cards {homeYellow}</p>
-      <p>Home red cards  {homeRed}</p>
+      <p>Home red cards {homeRed}</p>
       <p>Home yellow cards {awayYellow}</p>
       <p>Home red cards {awayRed}</p>
       <p>round {round}</p>
     </div>
-  )
-}
+  );
+};
 
-export default Schedule
+export default Schedule;

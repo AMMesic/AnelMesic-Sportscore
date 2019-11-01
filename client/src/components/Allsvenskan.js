@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Schedule from '../Routes/Schedule'
-import Loading from './Loading'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import Typography from '@material-ui/core/Typography'
+import React, { useEffect, useState } from 'react';
+import Schedule from '../Routes/Schedule';
+import Loading from './Loading';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
 // import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import './Allsvenskan.css'
+import './Allsvenskan.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,49 +26,48 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary
   }
-}))
+}));
 
 const Allsvenskan = () => {
-  const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false)
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = panel => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false)
-  }
-  const [teams, setAllTeams] = useState([])
-  const [state, setAllState] = useState([''])
-  const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(false)
+    setExpanded(isExpanded ? panel : false);
+  };
+  const [teams, setAllTeams] = useState([]);
+  const [state, setAllState] = useState(['']);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getFootballStats = async () => {
-    setLoading(true)
-    const res = await fetch(`http://localhost:5000/allsvenskan/${search}`)
-    const data = await res.json()
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/allsvenskan/${search}`);
+    const data = await res.json();
 
-    setAllTeams(data)
-    setLoading(false)
-  }
+    setAllTeams(data);
+    setLoading(false);
+  };
   const getFootballTeams = async () => {
-    setLoading(true)
-    const res = await fetch(`http://localhost:5000/allsvenskan/teams`)
-    const data = await res.json()
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/allsvenskan/teams`);
+    const data = await res.json();
 
-    setAllState(data)
-    setLoading(false)
-  }
+    setAllState(data);
+    setLoading(false);
+  };
 
   const updateSearchAutoComplete = e => {
-    setSearch(e.target.textContent)
-  }
+    setSearch(e.target.textContent);
+  };
 
   const updateSearch = e => {
-    console.log(e.target.value)
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
-    getFootballTeams()
-  }, [])
+    getFootballTeams();
+  }, []);
 
   return (
     <div className="App">
@@ -99,52 +98,55 @@ const Allsvenskan = () => {
               className="search-button"
               variant="outlined"
               onClick={getFootballStats}
-              style={{ height: 85, background: 'linear-gradient(45deg, #cfd9df 30%, #e2ebf0 90%)' }}
+              style={{
+                height: 85,
+                background: 'linear-gradient(45deg, #cfd9df 30%, #e2ebf0 90%)'
+              }}
             >
               Search
             </Button>
           </div>
         </div>
-        <div className={classes.root}>
-          <ExpansionPanel
-            expanded={expanded === 'panel1'}
-            onChange={handleChange('panel1')}
-          >
-            <ExpansionPanelSummary
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Typography className={classes.heading}>
-                Schedule and stats for games
-              </Typography>
-              <Typography className={classes.secondaryHeading}>
-                Click to expansion
-              </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <div className="football-stats">
-                  {teams.map(stats => (
-                    <Schedule
-                      home={stats.homeName}
-                      away={stats.awayName}
-                      homeScore={stats.homeScore}
-                      awayScore={stats.awayScore}
-                      location={stats.location}
-                      round={stats.round}
-                      homeYellow={stats.homeYellow}
-                      homeRed={stats.homeRed}
-                      awayYellow={stats.awayYellow}
-                      awayRed={stats.awayRed}
-                    />
-                  ))}
-                </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </div>
       </header>
+      <div className={classes.root}>
+        <ExpansionPanel
+          expanded={expanded === 'panel1'}
+          onChange={handleChange('panel1')}
+        >
+          <ExpansionPanelSummary
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <Typography className={classes.heading}>
+              Schedule and stats for games
+            </Typography>
+            <Typography className={classes.secondaryHeading}>
+              Click to expansion
+            </Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <div className="football-stats">
+              {teams.map(stats => (
+                <Schedule
+                  home={stats.homeName}
+                  away={stats.awayName}
+                  homeScore={stats.homeScore}
+                  awayScore={stats.awayScore}
+                  location={stats.location}
+                  round={stats.round}
+                  homeYellow={stats.homeYellow}
+                  homeRed={stats.homeRed}
+                  awayYellow={stats.awayYellow}
+                  awayRed={stats.awayRed}
+                />
+              ))}
+            </div>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </div>
       {loading && <Loading />}
     </div>
-  )
-}
+  );
+};
 
-export default Allsvenskan
+export default Allsvenskan;

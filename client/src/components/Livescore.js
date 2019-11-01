@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import LivescoreSchedule from '../Routes/LivescoreShedule'
-import Loading from './Loading'
-import Autocomplete from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
+import React, { useEffect, useState } from 'react';
+import LivescoreSchedule from '../Routes/LivescoreShedule';
+import Loading from './Loading';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import './Livescore.css';
 
 const Livescore = () => {
-  const [teams, setAllTeams] = useState([])
-  const [state, setAllState] = useState([])
-  const [search, setSearch] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [teams, setAllTeams] = useState([]);
+  const [state, setAllState] = useState([]);
+  const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getLivescore = async () => {
-    setLoading(true)
-    const res = await fetch(`http://localhost:5000/livescore/${search}`)
-    const data = await res.json()
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/livescore/${search}`);
+    const data = await res.json();
 
-    setAllTeams(data)
-    setLoading(false)
-  }
+    setAllTeams(data);
+    setLoading(false);
+  };
 
   const getLivescoreData = async () => {
-    setLoading(true)
-    const res = await fetch(`http://localhost:5000/livescore/leaguenames`)
-    const data = await res.json()
-    setAllState(data)
-    setLoading(false)
-  }
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/livescore/leaguenames`);
+    const data = await res.json();
+    setAllState(data);
+    setLoading(false);
+  };
 
   const updateSearchAutoComplete = e => {
-    console.log(e.target.textContent)
-    setSearch(e.target.textContent)
-  }
+    console.log(e.target.textContent);
+    setSearch(e.target.textContent);
+  };
 
   const updateSearch = e => {
-    console.log(e.target.value)
-    setSearch(e.target.value)
-  }
+    console.log(e.target.value);
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
-    getLivescoreData()
-  }, [])
+    getLivescoreData();
+  }, []);
 
   return (
     <div className="App">
@@ -99,7 +100,7 @@ const Livescore = () => {
         </div>
       </header>
     </div>
-  )
-}
+  );
+};
 
-export default Livescore
+export default Livescore;
