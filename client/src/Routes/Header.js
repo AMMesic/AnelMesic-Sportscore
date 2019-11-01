@@ -32,13 +32,16 @@ const Header = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link to="/Allsvenskan">Allsvenskan</Link>
+          <Link to="/">Home</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/allsvenskan">Allsvenskan</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <Link to="/SM-guld">SM-Special</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/Livescore">Livescore</Link>
+          <Link to="/livescore">Livescore</Link>
         </MenuItem>
       </Menu>
       <h1 className="logo-name">QuickScore</h1>

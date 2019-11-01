@@ -40,8 +40,8 @@ const Allsvenskan = () => {
     setExpanded(isExpanded ? panel : false);
   };
    
-  const [teams, setAllTeams] = useState([]);
-  const [state, setAllState] = useState(['']);
+  const [stats, setAllStats] = useState([]);
+  const [teams, setAllTeams] = useState(['']);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ const Allsvenskan = () => {
     const res = await fetch(`http://localhost:5000/allsvenskan/${search}`);
     const data = await res.json();
 
-    setAllTeams(data);
+    setAllStats(data);
     setLoading(false);
   };
   const getFootballTeams = async () => {
@@ -58,7 +58,7 @@ const Allsvenskan = () => {
     const res = await fetch(`http://localhost:5000/allsvenskan/teams`);
     const data = await res.json();
 
-    setAllState(data);
+    setAllTeams(data);
     setLoading(false);
   };
 
@@ -83,7 +83,7 @@ const Allsvenskan = () => {
               className="autocomplete"
               autoHightlight
               autoComplete={true}
-              options={state}
+              options={teams}
               onChange={updateSearchAutoComplete}
               style={{ width: 'auto', justifyContent: 'center' }}
               renderInput={params => (
@@ -131,7 +131,7 @@ const Allsvenskan = () => {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.panelDetailClass}>
             <div className="football-stats">
-              {teams.map(stats => (
+              {stats.map(stats => (
                 <Schedule
                   key={uuid()}
                   home={stats.homeName}
