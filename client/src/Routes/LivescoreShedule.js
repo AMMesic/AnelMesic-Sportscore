@@ -7,8 +7,8 @@ const LivescoreSchedule = ({ home, away, homeScore, awayScore, location, leagueN
     <div className="livescore-placeholder">
       <h3>Home: {home}</h3>
       <h3>Away: {away}</h3>
-      <p>{homeScore}</p>
-      <p>{awayScore}</p>
+      <p>Home goals: {homeScore}</p>
+      <p>Away golas: {awayScore}</p>
       <p>league: {leagueName}</p>
       <p>Stadium {location}</p>
       <p>round {round}</p>

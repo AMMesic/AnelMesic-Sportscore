@@ -41,7 +41,16 @@ app.get('/allsvenskan/:team', async (req, res) => {
   const response = await fetch(`http://api.isportsapi.com/sport/football/schedule?api_key=${APP_KEY}&leagueId=1628`)
   const data = await response.json()
   const teams = data.data.filter(team => team.homeName === req.params.team || team.awayName === req.params.team)
-  res.send(teams)
+  if(teams === undefined) {
+    return res
+      .status(404)
+      .json({message: `No teams found for team ${req.params.team}`});
+  }
+  res
+    .status(200)
+    .send(teams);
+  
+  
 })
 
 
