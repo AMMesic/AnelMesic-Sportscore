@@ -68,7 +68,7 @@ app.get('/livescore', async (req, res) => {
 
 app.get('/livescore/leaguenames', async (req, res) => {
   const response = await fetch(
-    `http://api.isportsapi.com/sport/football/livescores/changes?api_key=${APP_KEY}`
+    `http://api.isportsapi.com/sport/football/livescores?api_key=${APP_KEY}`
   );
   const data = await response.json();
   const teams = data.data

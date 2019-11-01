@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Schedule from '../Routes/Schedule';
+import Schedule from '../components/Schedule';
 import Loading from './Loading';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -31,10 +31,10 @@ const useStyles = makeStyles(theme => ({
 const Allsvenskan = () => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+   
   const [teams, setAllTeams] = useState([]);
   const [state, setAllState] = useState(['']);
   const [search, setSearch] = useState('');
@@ -139,6 +139,8 @@ const Allsvenskan = () => {
                   homeRed={stats.homeRed}
                   awayYellow={stats.awayYellow}
                   awayRed={stats.awayRed}
+                  season={stats.season}
+                  weather={stats.weather}
                 />
               ))}
             </div>

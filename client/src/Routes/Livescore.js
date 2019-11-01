@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LivescoreSchedule from '../Routes/LivescoreShedule';
+import LivescoreSchedule from '../components/LivescoreShedule';
 import Loading from './Loading';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';

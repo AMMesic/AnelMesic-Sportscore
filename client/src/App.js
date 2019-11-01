@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Allsvenskan from './components/Allsvenskan';
-import Header from './components/Header';
-import Smspecial from './components/Smspecial';
-import Livescore from './components/Livescore';
+import Allsvenskan from './Routes/Allsvenskan';
+import Header from './Routes/Header';
+import Smspecial from './Routes/Smspecial';
+import Livescore from './Routes/Livescore';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 function App() {

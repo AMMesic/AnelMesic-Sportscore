@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sm from '../Routes/Sm';
+import Sm from '../components/Sm';
 import Loading from './Loading';
 import Button from '@material-ui/core/Button';
 import uuid from 'uuid/v4';
