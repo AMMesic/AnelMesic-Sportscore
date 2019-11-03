@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LivescoreSchedule from '../components/LivescoreShedule';
+import Schedule from '../components/Schedule'
 import Loading from './Loading';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
@@ -81,7 +82,7 @@ const Livescore = () => {
         </div>
         <div className="football-stats">
           {teams.map(stats => (
-            <LivescoreSchedule
+            <Schedule
               key={uuid()}
               home={stats.homeName}
               away={stats.awayName}

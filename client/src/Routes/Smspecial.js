@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sm from '../components/Sm';
+import Schedule from '../components/Schedule'
 import Loading from './Loading';
 import Button from '@material-ui/core/Button';
 import uuid from 'uuid/v4';
@@ -37,7 +38,7 @@ const Smspecial = () => {
         </div>
         <div className="football-stats">
           {teams.map(stats => (
-            <Sm
+            <Schedule
               key={uuid()}
               home={stats.homeName}
               away={stats.awayName}
