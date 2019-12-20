@@ -35,6 +35,9 @@ const Header = () => {
           <Link to="/">Home</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
+          <Link to="/EnglishpremierLeague">English Premier League</Link>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
           <Link to="/allsvenskan">Allsvenskan</Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>

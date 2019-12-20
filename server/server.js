@@ -16,7 +16,8 @@ app.get('/englishPL', async (req, res) => {
     `https://www.thesportsdb.com/api/v1/json/1/eventsseason.php?id=4328&s=1920`
   );
   const data = await response.json();
-  res.send(data.data);
+  const result = data.events.map(x => x.strEvent)
+  res.send(result);
 });
 
 // app.get('/allsvenskan/teams', async (req, res) => {
