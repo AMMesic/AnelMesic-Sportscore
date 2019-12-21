@@ -11,12 +11,23 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'client')));
 
-app.get('/englishPL', async (req, res) => {
+
+
+app.get('/englishPL/teams', async (req, res) => {
+  const response = await fetch(
+    `https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League`
+  );
+  const data = await response.json();
+  const result = data.teams.map(x => x.strTeam)
+  res.send(result);
+});
+
+app.get('/englishPLTeams/:team', async (req, res) => {
   const response = await fetch(
     `https://www.thesportsdb.com/api/v1/json/1/eventsseason.php?id=4328&s=1920`
   );
   const data = await response.json();
-  const result = data.events.map(x => x.strEvent)
+  const result = data.events.filter(team => team.strEvent === req.params.team)
   res.send(result);
 });
 

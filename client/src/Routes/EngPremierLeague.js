@@ -11,7 +11,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import uuid from 'uuid/v4';
 
-import './Allsvenskan.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,22 +39,35 @@ const EngPremierLeague = () => {
     setExpanded(isExpanded ? panel : false);
   };
    
-  
+  const [stats, setAllStats] = useState([]);
   const [teams, setAllTeams] = useState(['']);
-
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
 
-  
+  const getFootballStats = async () => {
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/allsvenskan/${search}`);
+    const data = await res.json();
+
+    setAllStats(data);
+    setLoading(false);
+  };
   const getFootballTeams = async () => {
     setLoading(true);
-    const res = await fetch(`http://localhost:5000/englishPL`);
+    const res = await fetch(`http://localhost:5000/englishPL/teams`);
     const data = await res.json();
-    
 
     setAllTeams(data);
     setLoading(false);
   };
-;
+
+  const updateSearchAutoComplete = e => {
+    setSearch(e.target.textContent);
+  };
+
+  const updateSearch = e => {
+    setSearch(e.target.value);
+  };
 
   useEffect(() => {
     getFootballTeams();
@@ -64,6 +76,41 @@ const EngPremierLeague = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <div className="search-bar">
+          <form onSubmit={getFootballStats} className="search-form">
+            <Autocomplete
+              className="autocomplete"
+              autoHightlight
+              autoComplete={true}
+              options={teams}
+              onChange={updateSearchAutoComplete}
+              style={{ width: 'auto', justifyContent: 'center' }}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  value={search}
+                  onChange={updateSearch}
+                  label="Teams"
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+          </form>
+          <div className="button">
+            <Button
+              className="search-button"
+              variant="outlined"
+              onClick={getFootballStats}
+              style={{
+                height: 85,
+                background: 'linear-gradient(45deg, #cfd9df 30%, #e2ebf0 90%)'
+              }}
+            >
+              Search
+            </Button>
+          </div>
+        </div>
       </header>
       <div className={classes.root}>
         <ExpansionPanel
@@ -83,7 +130,7 @@ const EngPremierLeague = () => {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.panelDetailClass}>
             <div className="football-stats">
-             {console.log(teams)}
+              
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
