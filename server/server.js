@@ -22,13 +22,20 @@ app.get('/englishPL/teams', async (req, res) => {
   res.send(result);
 });
 
-app.get('/englishPLTeams/:team', async (req, res) => {
+app.get('/searchTeam/:team', async (req, res) => {
   const response = await fetch(
-    `https://www.thesportsdb.com/api/v1/json/1/eventsseason.php?id=4328&s=1920`
+    `https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${req.params.team}`
   );
   const data = await response.json();
-  const result = data.events.filter(team => team.strEvent === req.params.team)
-  res.send(result);
+  const setLeague = data.teams.filter(res => res.idLeague === '4328')
+  const result = await setLeague.map(res => {
+   return{
+    team: res.strTeam,
+    league: res.strLeague
+   }
+  })
+  
+  res.send(result)
 });
 
 // app.get('/allsvenskan/teams', async (req, res) => {
