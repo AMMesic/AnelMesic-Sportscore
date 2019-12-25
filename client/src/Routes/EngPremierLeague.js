@@ -9,9 +9,9 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
+
 import uuid from 'uuid/v4';
 
-import './Allsvenskan.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,7 +30,14 @@ const useStyles = makeStyles(theme => ({
   },
   panelDetailClass: {
 
-  }
+  },
+  textBox: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 200,
+      
+    },
+  },
 }));
 
 const EngPremierLeague = () => {
@@ -40,30 +47,57 @@ const EngPremierLeague = () => {
     setExpanded(isExpanded ? panel : false);
   };
    
-  
+  const [stats, setAllStats] = useState([]);
   const [teams, setAllTeams] = useState(['']);
-
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('Liverpool')
   const [loading, setLoading] = useState(false);
 
-  
+  const getFootballStats = async () => {
+    setLoading(true);
+    const res = await fetch(`http://localhost:5000/searchTeam/${query}`);
+    const data = await res.json();
+
+    setAllStats(data);
+    setLoading(false);
+  };
   const getFootballTeams = async () => {
     setLoading(true);
-    const res = await fetch(`http://localhost:5000/englishPL`);
+    const res = await fetch(`http://localhost:5000/englishPL/teams`);
     const data = await res.json();
-    
 
     setAllTeams(data);
     setLoading(false);
   };
-;
+
+  const updateSearchAutoComplete = e => {
+    setSearch(e.target.textContent);
+  };
+
+  const updateSearch = e => {
+    setSearch(e.target.value);
+    console.log(search)
+  };
+
+  const getSearch = e => {
+    e.preventDefault()
+    setQuery(search)
+    setSearch('')
+    
+  }
 
   useEffect(() => {
-    getFootballTeams();
-  }, []);
+    getFootballStats();
+  }, [query]);
 
   return (
     <div className="App">
       <header className="App-header">
+        <div className='text-box'>
+      <form onSubmit={getSearch} className={classes.textBox} noValidate autoComplete="off">
+      <TextField id="outlined-basic" label="Search Team" variant="outlined" value={search} onChange={updateSearch} />
+    </form>
+    </div>
       </header>
       <div className={classes.root}>
         <ExpansionPanel
@@ -83,7 +117,7 @@ const EngPremierLeague = () => {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.panelDetailClass}>
             <div className="football-stats">
-             {console.log(teams)}
+              {stats.map(team => team)}
             </div>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -94,3 +128,39 @@ const EngPremierLeague = () => {
 };
 
 export default EngPremierLeague;
+
+{/* <div className="search-bar">
+<form onSubmit={getFootballStats} className="search-form">
+  <Autocomplete
+    className="autocomplete"
+    autoHightlight
+    autoComplete={true}
+    options={teams}
+    onChange={updateSearchAutoComplete}
+    style={{ width: 'auto', justifyContent: 'center' }}
+    renderInput={params => (
+      <TextField
+        {...params}
+        value={search}
+        onChange={updateSearch}
+        label="Teams"
+        variant="outlined"
+        fullWidth
+      />
+    )}
+  />
+</form>
+<div className="button">
+  <Button
+    className="search-button"
+    variant="outlined"
+    onClick={getFootballStats}
+    style={{
+      height: 85,
+      background: 'linear-gradient(45deg, #cfd9df 30%, #e2ebf0 90%)'
+    }}
+  >
+    Search
+  </Button>
+</div>
+</div> */}

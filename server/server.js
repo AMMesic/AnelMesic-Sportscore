@@ -11,13 +11,31 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'client')));
 
-app.get('/englishPL', async (req, res) => {
+
+
+app.get('/englishPL/teams', async (req, res) => {
   const response = await fetch(
-    `https://www.thesportsdb.com/api/v1/json/1/eventsseason.php?id=4328&s=1920`
+    `https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League`
   );
   const data = await response.json();
-  const result = data.events.map(x => x.strEvent)
+  const result = data.teams.map(x => x.strTeam)
   res.send(result);
+});
+
+app.get('/searchTeam/:team', async (req, res) => {
+  const response = await fetch(
+    `https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${req.params.team}`
+  );
+  const data = await response.json();
+  const setLeague = data.teams.filter(res => res.idLeague === '4328')
+  const result = await setLeague.map(res => {
+   return{
+    team: res.strTeam,
+    league: res.strLeague
+   }
+  })
+  
+  res.send(result)
 });
 
 // app.get('/allsvenskan/teams', async (req, res) => {
